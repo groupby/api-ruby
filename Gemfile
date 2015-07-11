@@ -1,2 +1,4 @@
 source 'https://rubygems.org'
-gem 'rspec', :require => 'spec'
+
+# Specify your gem's dependencies in groupby-api.gemspec
+gemspec
