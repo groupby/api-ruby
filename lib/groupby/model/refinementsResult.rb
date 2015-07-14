@@ -1,6 +1,6 @@
 module Groupby
   module Model
-    class RefinementsResult
+    class RefinementsResult < Serializable
 
       # string     @errors
       # Navigation @navigation

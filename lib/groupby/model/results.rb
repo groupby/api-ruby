@@ -1,6 +1,6 @@
 module Groupby
   module Model
-    class Results
+    class Results < Serializable
 
       # int          @total_record_count
       # string       @area

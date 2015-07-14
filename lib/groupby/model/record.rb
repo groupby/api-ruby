@@ -14,7 +14,7 @@ module Groupby
       @all_meta = Hash.new
       @refinement_matches = Array.new
 
-      protected def camelize(underscored)
+      protected def to_key(underscored)
         case underscored
           when '@url'
             '_u'
