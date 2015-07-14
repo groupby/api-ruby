@@ -1,6 +1,6 @@
 module Groupby
   module Request
-    class RestrictNavigation
+    class RestrictNavigation < Model::Serializable
 
       # string @name
       # int    @count

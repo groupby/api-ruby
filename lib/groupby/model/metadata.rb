@@ -1,6 +1,6 @@
 module Groupby
   module Model
-    class Metadata
+    class Metadata < Serializable
 
       # string @key
       # string @value

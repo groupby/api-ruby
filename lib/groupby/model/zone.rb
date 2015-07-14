@@ -2,7 +2,7 @@ require 'abstraction'
 
 module Groupby
   module Model
-    class Zone
+    class Zone < Serializable
       include Groupby::Model::Identifiable
       abstract
 

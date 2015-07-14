@@ -1,6 +1,6 @@
 module Groupby
   module Model
-    class Sort
+    class Sort < Serializable
 
       module Order
         ASCENDING = 'Ascending'
@@ -15,7 +15,9 @@ module Groupby
       # string      @field
       # Sort::Order @order
 
-      @order = Sort::Order::ASCENDING
+      def initialize
+        @order = Order::ASCENDING
+      end
 
     end
   end

@@ -1,6 +1,6 @@
 module Groupby
   module Model
-    class MatchStrategy
+    class MatchStrategy < Serializable
 
       # PartialMatchRule[] @rules
 

@@ -1,6 +1,6 @@
 module Groupby
   module Request
-    class Request
+    class Request < Model::Serializable
 
       # string               @client_key
       # string               @collection

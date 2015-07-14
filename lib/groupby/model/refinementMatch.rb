@@ -1,8 +1,8 @@
 module Groupby
   module Model
-    class RefinementMatch
+    class RefinementMatch < Serializable
 
-      class Value
+      class Value < Serializable
 
         # string @value
         # int    @count

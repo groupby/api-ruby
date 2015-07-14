@@ -7,7 +7,9 @@ module Groupby
 
       attr_accessor :high, :low
 
-      @type = Refinement::Type::RANGE
+      def initialize
+        @type = Type::RANGE
+      end
 
       def to_tilde_string
         ":#{@low}..#{@high}"

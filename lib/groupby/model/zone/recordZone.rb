@@ -6,7 +6,9 @@ module Groupby
 
       attr_accessor :records
 
-      @type = Zone::Type::RECORD
+      def initialize
+        @type = Type::RECORD
+      end
 
     end
   end

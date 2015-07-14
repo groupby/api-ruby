@@ -1,7 +1,7 @@
 module Groupby
   module Model
     # noinspection RubyTooManyInstanceVariablesInspection
-    class Navigation
+    class Navigation < Serializable
       include Groupby::Model::Identifiable
 
       module Order

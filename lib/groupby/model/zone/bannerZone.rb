@@ -2,7 +2,9 @@ module Groupby
   module Model
     class BannerZone < AbstractContentZone
 
-      @type = Zone::Type::BANNER
+      def initialize
+        @type = Type::BANNER
+      end
 
       def banner_url
         @content

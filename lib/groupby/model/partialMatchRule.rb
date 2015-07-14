@@ -1,6 +1,6 @@
 module Groupby
   module Model
-    class PartialMatchRule
+    class PartialMatchRule < Serializable
 
       # int  @terms
       # int  @terms_greater_than

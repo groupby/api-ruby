@@ -6,7 +6,9 @@ module Groupby
 
       attr_accessor :value
 
-      @value = Refinement::Type::VALUE
+      def initialize
+        @type = Type::VALUE
+      end
 
       def to_tilde_string
         "=#{@value}"

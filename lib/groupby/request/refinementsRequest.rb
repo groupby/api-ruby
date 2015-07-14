@@ -1,6 +1,6 @@
 module Groupby
   module Request
-    class RefinementsRequest
+    class RefinementsRequest < Model::Serializable
 
       # Request @original_query
       # string  @navigation_name

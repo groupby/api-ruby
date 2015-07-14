@@ -2,7 +2,7 @@ require 'abstraction'
 
 module Groupby
   module Model
-    class Refinement
+    class Refinement < Serializable
       include Groupby::Model::Identifiable
       abstract
 
@@ -21,7 +21,7 @@ module Groupby
 
       # noinspection RubyResolve
       def is_range?
-        @type == Refinement::Type::RANGE
+        @type == Type::RANGE
       end
 
       # abstract def to_tilde_string

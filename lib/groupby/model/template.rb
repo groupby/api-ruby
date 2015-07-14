@@ -1,6 +1,6 @@
 module Groupby
   module Model
-    class Template
+    class Template < Serializable
       include Groupby::Model::Identifiable
 
       # string @name
