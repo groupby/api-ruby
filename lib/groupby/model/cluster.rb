@@ -7,7 +7,9 @@ module Groupby
 
       attr_accessor :term, :records
 
-      @records = Array.new
+      def initialize
+        @records = Array.new
+      end
 
     end
   end

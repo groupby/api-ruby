@@ -18,8 +18,6 @@ module Groupby
       attr_accessor :name
       attr_reader :type
 
-      @type = nil
-
     end
   end
 end

@@ -10,7 +10,6 @@ module Groupby
     # :return_binary
 
     module Symbol
-      TILDE = '~'
       DOT = '.'
       DOUBLE_DOT = '..'
       EQUAL = '='
@@ -19,21 +18,22 @@ module Groupby
       SLASH = '/'
     end
 
-    self.custom_url_params = Array.new
-    self.navigations = Array.new
-    self.sort = Array.new
-    self.fields = Array.new
-    self.or_fields = Array.new
-    self.prune_refinements = true
-    self.disable_autocorrection = false
-    self.wildcard_search_enabled = false
-
     TILDE_REGEX = '/~((?=[\\w]*[=:])/'
 
-    private
-    def request_to_json(request)
-      # TODO catch exceptions
-      JSON.generate(request)
+    def initialize
+      @custom_url_params = Array.new
+      @navigations = Array.new
+      @sort = Array.new
+      @fields = Array.new
+      @or_fields = Array.new
+      @prune_refinements = true
+      @disable_autocorrection = false
+      @wildcard_search_enabled = false
+    end
+
+    private def request_to_json(request)
+              # TODO catch exceptions
+      request.to_json
     end
 
     def get_bridge_json(client_key)
@@ -48,35 +48,34 @@ module Groupby
       request_to_json(data)
     end
 
-    private
-    def populate_request(client_key)
-      request = Groupby::Api::Request::Request.new
+    private def populate_request(client_key)
+      request = Request::Request.new
       request.client_key = client_key
-      request.area = self.area
-      request.collection = self.collection
-      request.query = self.query
-      request.sort = self.sort
-      request.fields = self.fields
-      request.or_fields = self.or_fields
-      request.language = self.language
-      request.biasing_profile = self.biasing_profile
-      request.page_size = self.page_size
-      request.skip = self.skip
-      request.custom_url_params = self.custom_url_params
-      request.refinements = generate_selected_refinements(self.navigations)
-      request.restrict_navigation = self.restrict_navigation
+      request.area = @area
+      request.collection = @collection
+      request.query = @query
+      request.sort = @sort
+      request.fields = @fields
+      request.or_fields = @or_fields
+      request.language = @language
+      request.biasing_profile = @biasing_profile
+      request.page_size = @page_size
+      request.skip = @skip
+      request.custom_url_params = @custom_url_params
+      request.refinements = generate_selected_refinements(@navigations)
+      request.restrict_navigation = @restrict_navigation
 
-      prune_refinements = self.prune_refinements
-      if defined? prune_refinements && !prune_refinements
+      prune_refinements = @prune_refinements
+      if !prune_refinements.nil? && !prune_refinements
         request.prune_refinements = false
       end
 
-      disable_autocorrection = self.disable_autocorrection
+      disable_autocorrection = @disable_autocorrection
       if defined? disable_autocorrection && disable_autocorrection
         request.disable_autocorrection = true
       end
 
-      wildcard_search_enabled = self.wildcard_search_enabled
+      wildcard_search_enabled = @wildcard_search_enabled
       if defined? wildcard_search_enabled && wildcard_search_enabled
         request.wildcard_search_enabled = true
       end
@@ -89,43 +88,40 @@ module Groupby
       request
     end
 
-    private
-    def generate_selected_refinements(navigations)
+    private def generate_selected_refinements(navigations)
       refinements = Array.new
-      for navigation in navigations
-        for refinement in navigation.get_refinements
-          case refinement.get_type
+      navigations.each { |navigation|
+        navigation.refinements.each { |refinement|
+          case refinement.type
             when Refinement::Type::RANGE
               selected_refinement_range = SelectedRefinementRange.new
-              selected_refinement_range
-                  .set_navigation_name(navigation.get_name)
-                  .set_low(refinement.get_low)
-                  .set_high(refinement.get_high)
-                  .set_exclude(refinement.is_exclude?)
+              selected_refinement_range.navigation_name = navigation.name
+              selected_refinement_range.low = refinement.low
+              selected_refinement_range.high = refinement.high
+              selected_refinement_range.exclude = refinement.exclude
 
               refinements.push(selected_refinement_range)
             else # Refinement::Type::VALUE
               selected_refinement_value = SelectedRefinementValue.new
-              selected_refinement_value
-                  .set_navigation_name(navigation.get_name)
-                  .set_value(refinement.get_value)
-                  .set_exclude(refinement.is_exclude?)
+              selected_refinement_value.navigation_name = navigation.name
+              selected_refinement_value.value = refinement.value
+              selected_refinement_value.exclude = refinement.exclude
 
               refinements.push(selected_refinement_value)
           end
-        end
-      end
+        }
+      }
       refinements
     end
 
     def get_bridge_json_ref_search(client_key)
-      data = Groupby::Api::Request::Request.new
+      data = Request::Request.new
       data.client_key = client_key
-      data.collection = self.collection
-      data.area = self.area
-      data.refinement_query = self.query
+      data.collection = @collection
+      data.area = @area
+      data.refinement_query = @query
 
-      wildcard_search_enabled = self.wildcard_search_enabled
+      wildcard_search_enabled = @wildcard_search_enabled
       if defined? wildcard_search_enabled && wildcard_search_enabled
         data.wildcard_search_enabled = wildcard_search_enabled
       end
@@ -151,12 +147,16 @@ module Groupby
 
     def set_sort_by_field(field, order)
       sort = Sort.new
-      self.sort = sort.set_field(field).set_order(order)
+      sort.field = field
+      sort.order = order
+      @sort = sort
     end
 
     def add_custom_url_param_by_name(name, value)
       param = CustomUrlParam.new
-      add_custom_url_param(param.set_key(name).set_value(value))
+      param.key = name
+      param.value = value
+      add_custom_url_param(param)
     end
 
     def add_custom_url_param(param)
@@ -187,19 +187,16 @@ module Groupby
             refinement = RefinementRange.new
             if name_value[1].end_with?(Symbol::DOUBLE_DOT)
               value = name_value[1].split(Symbol::DOUBLE_DOT)
-              refinement
-                  .set_low(value[0])
-                  .set_high('')
+              refinement.low = value[0]
+              refinement.high = ''
             elsif name_value[1].start_with?(Symbol::DOUBLE_DOT)
               value = name_value[1].split(Symbol::DOUBLE_DOT)
-              refinement
-                  .set_low('')
-                  .set_high(value[1])
+              refinement.low = ''
+              refinement.high = value[1]
             else
               low_high = name_value[1].split(Symbol::DOUBLE_DOT)
-              refinement
-                  .set_low(low_high[0])
-                  .set_high(low_high[1])
+              refinement.low = low_high[0]
+              refinement.high = low_high[1]
             end
           else
             name_value = refinement_string.split(Symbol::EQUAL, 2)
@@ -214,35 +211,41 @@ module Groupby
     end
 
     def add_refinement(navigation_name, refinement)
-      if defined? self.navigations[navigation_name]
-        navigation = self.navigations[navigation_name]
+      if defined? @navigations[navigation_name]
+        navigation = @navigations[navigation_name]
       else
         navigation = Navigation.new
-        navigation.set_name(navigation_name).set_range(refinement.is_range?)
-        self.navigations[navigation_name] = navigation
+        navigation.name = navigation_name
+        navigation.range = refinement.range
+        @navigations[navigation_name] = navigation
       end
 
-      refinements = navigation.get_refinements
+      refinements = navigation.refinements
       refinements.push(refinement)
-      navigation.set_refinements(refinements)
+      navigation.refinements = refinements
     end
 
     def add_range_refinement(navigation_name, low, high, exclude = false)
       refinement = RefinementRange.new
-      add_refinement(navigation_name, refinement.set_low(low).set_high(high).set_exclude(exclude))
+      refinement.low = low
+      refinement.high = high
+      refinement.exclude = exclude
+      add_refinement(navigation_name, refinement)
     end
 
     def add_value_refinement(navigation_name, value, exclude = false)
       refinement = RefinementValue.new
-      add_refinement(navigation_name, refinement.set_value(value).set_exclude(exclude))
+      refinement.value = value
+      refinement.exclude = exclude
+      add_refinement(navigation_name, refinement)
     end
 
     def get_refinement_string
-      unless defined? self.navigations
+      unless defined? @navigations
         builder = ''
-        self.navigations.each { |n|
-          n.get_refinements.each { |r|
-            builder + Symbol::TILDE + n.get_name + r.to_tilde_string
+        @navigations.each { |n|
+          n.refinements.each { |r|
+            builder += "~#{n.get_name}#{r.to_tilde_string}"
           }
         }
         if builder.length > 0
@@ -255,7 +258,7 @@ module Groupby
       unless defined? self.custom_url_params
         builder = ''
         self.custom_url_params.each { |c|
-          builder + Symbol::TILDE + c.get_key + Symbol::EQUAL + c.get_value
+          builder += "~#{c.key}=#{c.value}"
         }
         if builder.length > 0
           builder

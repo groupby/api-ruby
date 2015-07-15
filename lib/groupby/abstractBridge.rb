@@ -1,6 +1,5 @@
 require 'mime/types'
 require 'net/http'
-require 'yajl'
 require 'abstraction'
 
 module Groupby
@@ -17,12 +16,10 @@ module Groupby
     CONTENT_TYPE = 'Content-Type'
     JSON = 'text/json'
 
-    # instance variables
-    @client_key
-    @bridge_url
-    @bridge_cluster_url
-    @bridge_refinement_url
-    @parser = Yajl::Parser.new
+    # string @client_key
+    # string @bridge_url
+    # string @bridge_cluster_url
+    # string @bridge_refinement_url
 
     def initialize(client_key, base_url)
       @client_key = client_key
@@ -43,9 +40,7 @@ module Groupby
       query(@bridge_refinement_url, content)
     end
 
-    private
-
-    def query(url, content)
+    private def query(url, content)
       response = execute(url, content)
 
       if response.code >= 400
@@ -68,7 +63,7 @@ module Groupby
       deserialize(response_body)
     end
 
-    def execute(url, content)
+    protected def execute(url, content)
       uri = URI(url)
       request = Net::HTTP::Post.new(uri)
       request.set_form_data(content)
@@ -79,10 +74,9 @@ module Groupby
       end
     end
 
-    private
-    def deserialize(json)
-      #TODO catch exceptions
-      @parser.parse(json)
+    private def deserialize(json)
+#TODO catch exceptions?
+      Model::Results.from_json(json)
     end
 
   end

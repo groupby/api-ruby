@@ -17,7 +17,9 @@ module Groupby
 
       attr_accessor :count, :exclude, :type
 
-      @exclude = false
+      def initialize
+        @exclude = false
+      end
 
       # noinspection RubyResolve
       def is_range?

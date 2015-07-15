@@ -25,14 +25,16 @@ module Groupby
                     :corrected_query, :template, :page_info, :available_navigation, :selected_navigation, :records,
                     :did_you_mean, :related_queries, :rewrites, :site_params, :clusters
 
-      @available_navigation = Array.new
-      @selected_navigation = Array.new
-      @records = Array.new
-      @did_you_mean = Array.new
-      @related_queries = Array.new
-      @rewrites = Array.new
-      @site_params = Array.new
-      @clusters = Array.new
+      def initialize
+        @available_navigation = Array.new
+        @selected_navigation = Array.new
+        @records = Array.new
+        @did_you_mean = Array.new
+        @related_queries = Array.new
+        @rewrites = Array.new
+        @site_params = Array.new
+        @clusters = Array.new
+      end
 
     end
   end

@@ -6,7 +6,9 @@ module Groupby
 
       attr_accessor :value
 
-      @type == SelectedRefinement::Type::VALUE
+      def initialize
+        @type = Type::VALUE
+      end
 
       # noinspection RubyResolve
       def to_tilde_string

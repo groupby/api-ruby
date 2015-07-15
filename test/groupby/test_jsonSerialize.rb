@@ -1,9 +1,6 @@
-require 'require_all'
-require_all 'lib/groupby/model'
-require_all 'lib/groupby/request'
-require_relative 'expectation/json'
-require_relative 'expectation/object'
 require 'minitest/autorun'
+require 'require_all'
+require_rel 'expectation'
 
 module Groupby
   class TestJsonSerialize < Minitest::Test

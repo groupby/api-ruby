@@ -9,7 +9,9 @@ module Groupby
 
       attr_accessor :terms, :terms_greater_than, :must_match, :percentage
 
-      @percentage = false
+      def initialize
+        @percentage = false
+      end
 
       def get_effective_greater_than
         if !defined? @terms

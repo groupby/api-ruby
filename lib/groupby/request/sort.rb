@@ -12,7 +12,9 @@ module Groupby
 
       attr_accessor :field, :order
 
-      @order = Sort::Order::ASCENDING
+      def initialize
+        @order = Order::ASCENDING
+      end
 
     end
   end

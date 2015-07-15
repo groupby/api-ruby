@@ -33,11 +33,13 @@ module Groupby
 
       attr_accessor :name, :type, :sort, :display_name, :range, :or, :more_refinements, :refinements, :metadata
 
-      @range = false
-      @or = false
-      @more_refinements = false
-      @refinements = Array.new
-      @metadata = Array.new
+      def initialize
+        @range = false
+        @or = false
+        @more_refinements = false
+        @refinements = Array.new
+        @metadata = Array.new
+      end
 
     end
   end

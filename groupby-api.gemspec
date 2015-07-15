@@ -32,9 +32,11 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake', '10.4.2'
   spec.add_development_dependency 'minitest', '5.7.0'
   spec.add_development_dependency 'require_all', '1.3.2'
+  spec.add_development_dependency 'assert_json', '0.2.3'
 
   # runtime dependencies
   spec.add_runtime_dependency 'mime-types', '2.6.1'
   spec.add_runtime_dependency 'yajl-ruby', '1.2.1'
   spec.add_runtime_dependency 'abstraction', '0.0.4'
+  spec.add_runtime_dependency 'activesupport', '4.2.3'
 end

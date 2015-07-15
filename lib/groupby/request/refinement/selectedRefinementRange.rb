@@ -7,7 +7,9 @@ module Groupby
 
       attr_accessor :low, :high
 
-      @type == SelectedRefinement::Type::RANGE
+      def initialize
+        @type = Type::RANGE
+      end
 
       # noinspection RubyResolve
       def to_tilde_string

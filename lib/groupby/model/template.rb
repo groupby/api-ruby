@@ -9,7 +9,9 @@ module Groupby
 
       attr_accessor :name, :rule_name, :zones
 
-      @zones = Array.new
+      def initialize
+        @zones = Array.new
+      end
 
     end
   end

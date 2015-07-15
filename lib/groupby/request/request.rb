@@ -28,13 +28,15 @@ module Groupby
                     :disable_autocorrection, :prune_refinements, :wildcard_search_enabled, :restrict_navigation,
                     :match_strategy
 
-      @sort = Array.new
-      @fields = Array.new
-      @or_fields = Array.new
-      @refinements = Array.new
-      @custom_url_params = Array.new
-      @prune_refinements = true
-      @wildcard_search_enabled = false
+      def initialize
+        @sort = Array.new
+        @fields = Array.new
+        @or_fields = Array.new
+        @refinements = Array.new
+        @custom_url_params = Array.new
+        @prune_refinements = true
+        @wildcard_search_enabled = false
+      end
 
     end
   end

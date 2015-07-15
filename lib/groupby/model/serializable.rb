@@ -1,5 +1,6 @@
 require 'abstraction'
 require 'json'
+require 'active_support/rails'
 
 module Groupby
   module Model
@@ -33,7 +34,9 @@ module Groupby
       end
 
       def to_json(*dummy_args)
-        JSON.generate(Hash[instance_variables.map { |name| [to_key(name.to_s), instance_variable_get(name)] }])
+        hash = Hash[instance_variables.map { |name| [to_key(name.to_s), instance_variable_get(name)] }]
+        hash.delete_if { |k, v| v.nil? }
+        JSON.generate(hash)
       end
 
       def self.from_json(json)

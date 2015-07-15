@@ -14,24 +14,23 @@ module Groupby
     CUSTOM_URL_PARAM = '{"key":"guava","value":"mango"}'
     SORT = '{"field":"price","order":"Descending"}'
     REFINEMENT_MATCH = '{"name":"grapheme","values":[' + REFINEMENT_MATCH_VALUE + ']}'
-    RECORD = '{"_id":"fw90314jh289t","_t":"Periwinkle","_snippet":"Curator","_u":"exemplar.com",' +
-        '"allMeta":{"look":"at","all":"my","keys":["we","are","the","values"]},"refinementMatches":[' +
-        REFINEMENT_MATCH + ']}'
+    RECORD = '{"allMeta":{"look":"at","all":"my","keys":["we","are","the","values"]},"refinementMatches":[' +
+        REFINEMENT_MATCH + '],"_id":"fw90314jh289t","_t":"Periwinkle","_snippet":"Curator","_u":"exemplar.com"}'
     RECORD_ZONE = '{"type":"Record","_id":"1240jfw9s8","name":"gorbachev","records":[' + RECORD + ']}'
-    TEMPLATE = '{"_id":"fad87g114","name":"bulbous","ruleName":"carmageddon",' +
-        '"zones":[' + CONTENT_ZONE + ',' + RECORD_ZONE + ']}'
+    TEMPLATE = '{"zones":[' + CONTENT_ZONE + ',' + RECORD_ZONE + '],"_id":"fad87g114","name":"bulbous",' +
+        '"ruleName":"carmageddon"}'
     CLUSTER = '{"records":[' + CLUSTER_RECORD + '],"term":"some"}'
-    NAVIGATION = '{"_id":"081h29n81f","name":"green","displayName":"GReeN","or":false,"type":"Range_Date",' +
-        '"range":true,"sort":' + SORT + ',"metadata":[' + METADATA + '],"refinements":[' +
-        REFINEMENT_RANGE + ',' + REFINEMENT_VALUE + '],"moreRefinements":true}'
+    NAVIGATION = '{"range":true,"or":false,"moreRefinements":true,"refinements":[' + REFINEMENT_RANGE + ',' +
+        REFINEMENT_VALUE + '],"metadata":[' + METADATA + '],"_id":"081h29n81f","name":"green",' +
+        '"displayName":"GReeN","type":"Range_Date","sort":' + SORT + '}'
     PARTIAL_MATCH_RULE = '{"mustMatch":4,"terms":2,"termsGreaterThan":45,"percentage":true}'
     MATCH_STRATEGY = '{"rules":[' + PARTIAL_MATCH_RULE + ']}'
-    REQUEST = '{"clientKey":"adf7h8er7h2r","collection":"ducks","area":"surface","skip":12,"pageSize":30,' +
-        '"biasingProfile":"ballooning","language":"en","pruneRefinements":true,"returnBinary":false,"query":"cantaloupe",' +
-        '"refinementQuery":"cranberry","sort":[' + SORT + '],"fields":["pineapple","grape","clementine"],' +
-        '"orFields":["pumpernickel","rye"],"refinements":[' + REFINEMENT_RANGE + ',' + REFINEMENT_VALUE + '],' +
-        '"customUrlParams":[' + CUSTOM_URL_PARAM + '],"wildcardSearchEnabled":true,"restrictNavigation":' +
-        RESTRICT_NAVIGATION + ',"matchStrategy":' + MATCH_STRATEGY + '}'
+    REQUEST = '{"sort":[' + SORT + '],"fields":["pineapple","grape","clementine"],"orFields":["pumpernickel","rye"],' +
+        '"refinements":[' + REFINEMENT_RANGE + ',' + REFINEMENT_VALUE + '],"customUrlParams":[' + CUSTOM_URL_PARAM +
+        '],"pruneRefinements":true,"wildcardSearchEnabled":true,"clientKey":"adf7h8er7h2r","collection":"ducks",' +
+        '"area":"surface","skip":12,"pageSize":30,"biasingProfile":"ballooning","language":"en","returnBinary":false,' +
+        '"query":"cantaloupe","refinementQuery":"cranberry","restrictNavigation":' + RESTRICT_NAVIGATION +
+        ',"matchStrategy":' + MATCH_STRATEGY + '}'
     REFINEMENTS_REQUEST = '{"originalQuery":' + REQUEST + ',"navigationName":"height"}'
     RESULTS = '{"availableNavigation":[' + NAVIGATION + '],"selectedNavigation":[' + NAVIGATION + '],"clusters":[' +
         CLUSTER + '],"records":[' + RECORD + '],"didYouMean":["square","skewer"],"relatedQueries":["squawk","ask"],' +

@@ -11,8 +11,10 @@ module Groupby
 
       attr_accessor :url, :snippet, :title, :all_meta, :refinement_matches
 
-      @all_meta = Hash.new
-      @refinement_matches = Array.new
+      def initialize
+        @all_meta = Hash.new
+        @refinement_matches = Array.new
+      end
 
       protected def to_key(underscored)
         case underscored
