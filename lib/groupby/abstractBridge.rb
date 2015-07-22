@@ -14,7 +14,7 @@ module Groupby
     HTTPS = 'https://'
     COLON = ':'
     CONTENT_TYPE = 'Content-Type'
-    JSON = 'text/json'
+    JSON = 'application/json'
 
     # string @client_key
     # string @bridge_url
@@ -31,16 +31,16 @@ module Groupby
     def search(query)
       content = query.get_bridge_json(@client_key)
 
-      query(@bridge_url, content)
+      query(@bridge_url, content, Model::Results)
     end
 
     def refinements(query, navigation_name)
       content = query.get_bridge_refinements_json(@client_key, navigation_name)
 
-      query(@bridge_refinement_url, content)
+      query(@bridge_refinement_url, content, Model::RefinementsResult)
     end
 
-    private def query(url, content)
+    private def query(url, content, obj_class)
       response = execute(url, content)
 
       if response.code >= 400
@@ -53,14 +53,10 @@ module Groupby
 
       response_body = response.body
       if response['content-encoding'] == 'gzip'
-        zip_stream = Zlib::Inflate.new
-        zip_buffer = zip_stream.inflate(response_body)
-        zip_stream.finish
-        zip_stream.close
-        response_body = zip_buffer
+        response_body = Zlib::Inflate.inflate(response_body)
       end
 
-      deserialize(response_body)
+      deserialize(response_body, obj_class)
     end
 
     protected def execute(url, content)
@@ -74,9 +70,9 @@ module Groupby
       end
     end
 
-    private def deserialize(json)
-#TODO catch exceptions?
-      Model::Results.from_json(json)
+    private def deserialize(json, obj_class)
+              # TODO catch exceptions?
+      obj_class.json_create(json)
     end
 
   end

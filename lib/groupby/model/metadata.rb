@@ -1,11 +1,12 @@
+require_relative '../util/hashStruct'
+
 module Groupby
   module Model
-    class Metadata < Serializable
+    # string @key
+    # string @value
 
-      # string @key
-      # string @value
-
-      attr_accessor :key, :value
+    class Metadata < Struct.new(:key, :value)
+      # include Groupby::Util::HashStruct
 
     end
   end

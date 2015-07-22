@@ -1,11 +1,14 @@
 module Groupby
   module Model
-    class Cluster < Serializable
+    # string          @term
+    # ClusterRecord[] @records
 
-      # string          @term
-      # ClusterRecord[] @records
+    class Cluster < Struct.new(:term, :records)
+      # include Groupby::Util::HashStruct
 
-      attr_accessor :term, :records
+      # @structs = {
+      #     :records => Record
+      # }
 
       def initialize
         @records = Array.new

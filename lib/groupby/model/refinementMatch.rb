@@ -1,20 +1,20 @@
+require_relative '../util/hashStruct'
+
 module Groupby
   module Model
-    class RefinementMatch < Serializable
+    # string                   @name
+    # RefinementMatch::Value[] @values
 
-      class Value < Serializable
+    class RefinementMatch < Struct.new(:name, :values)
+      # include Groupby::Util::HashStruct
 
-        # string @value
-        # int    @count
+      # string @value
+      # int    @count
 
-        attr_accessor :value, :count
+      class Value < Struct.new(:value, :count)
+        # include Groupby::Util::HashStruct
 
       end
-
-      # string                   @name
-      # RefinementMatch::Value[] @values
-
-      attr_accessor :name, :values
 
     end
   end

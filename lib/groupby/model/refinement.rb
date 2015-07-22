@@ -1,21 +1,23 @@
-require 'abstraction'
+# require 'abstraction'
+# require 'require_all'
+# require_all 'lib'
 
 module Groupby
   module Model
-    class Refinement < Serializable
+    # int              @count
+    # bool             @exclude
+    # Refinement::Type @type
+
+    class Refinement < Util::HashStruct.new(:count, :exclude, :type)
       include Groupby::Model::Identifiable
       abstract
+
+      attr_discriminators type: { Type::RANGE => Groupby::Model::RefinementRange, Type::VALUE => Groupby::Model::RefinementValue }
 
       module Type
         RANGE = 'Range'
         VALUE = 'Value'
       end
-
-      # int              @count
-      # bool             @exclude
-      # Refinement::Type @type
-
-      attr_accessor :count, :exclude, :type
 
       def initialize
         @exclude = false

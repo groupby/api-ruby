@@ -1,15 +1,16 @@
+require_relative '../util/hashStruct'
+
 module Groupby
   module Model
-    class Record < Serializable
+    # string            @url
+    # string            @snippet
+    # string            @title
+    # object[]          @all_meta
+    # RefinementMatch[] @refinement_matches
+
+    class Record < Struct.new(:url, :snippet, :title, :all_meta, :refinement_matches)
       include Groupby::Model::Identifiable
-
-      # string            @url
-      # string            @snippet
-      # string            @title
-      # object[]          @all_meta
-      # RefinementMatch[] @refinement_matches
-
-      attr_accessor :url, :snippet, :title, :all_meta, :refinement_matches
+      # include Groupby::Util::HashStruct
 
       def initialize
         @all_meta = Hash.new

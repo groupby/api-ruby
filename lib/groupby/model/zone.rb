@@ -1,9 +1,13 @@
 require 'abstraction'
+require_relative '../util/hashStruct'
 
 module Groupby
   module Model
-    class Zone < Serializable
+    # string @name
+
+    class Zone < Struct.new(:name)
       include Groupby::Model::Identifiable
+      # include Groupby::Util::HashStruct
       abstract
 
       module Type
@@ -13,9 +17,10 @@ module Groupby
         RICH_CONTENT = 'Rich_Content'
       end
 
-      # string @name
+      def initialize
+        @type = nil
+      end
 
-      attr_accessor :name
       attr_reader :type
 
     end

@@ -21,6 +21,8 @@ module Groupby
     TILDE_REGEX = '/~((?=[\\w]*[=:])/'
 
     def initialize
+      @skip = 0
+      @page_size = 10
       @custom_url_params = Array.new
       @navigations = Array.new
       @sort = Array.new
@@ -42,7 +44,7 @@ module Groupby
     end
 
     def get_bridge_refinements_json(client_key, navigation_name)
-      data = RefinementsRequest.new
+      data = Request::RefinementsRequest.new
       data.original_query = populate_request(client_key)
       data.navigation_name = navigation_name
       request_to_json(data)
@@ -71,12 +73,12 @@ module Groupby
       end
 
       disable_autocorrection = @disable_autocorrection
-      if defined? disable_autocorrection && disable_autocorrection
+      if !disable_autocorrection.nil? && disable_autocorrection
         request.disable_autocorrection = true
       end
 
       wildcard_search_enabled = @wildcard_search_enabled
-      if defined? wildcard_search_enabled && wildcard_search_enabled
+      if !wildcard_search_enabled.nil? && wildcard_search_enabled
         request.wildcard_search_enabled = true
       end
 
@@ -175,7 +177,7 @@ module Groupby
       unless defined? refinements_string
         refinement_strings = split_refinements(refinements_string)
         refinement_strings.each { |refinement_string|
-          if (!defined? refinement_string) || '=' == refinement_string
+          if (!refinement_string.empty?) || '=' == refinement_string
             next
           end
           colon = refinement_string.index(Symbol::COLON)
@@ -203,7 +205,7 @@ module Groupby
             refinement = RefinementValue.new
             refinement.set_value(name_value[1])
           end
-          unless defined? name_value[0]
+          unless name_value[0].empty?
             add_refinement(name_value[0], refinement)
           end
         }
