@@ -9,9 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Ben Teichman']
   spec.email         = ['ben.teichman@groupbyinc.com']
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = "prototype groupby API client"
+  spec.homepage      = "https://github.com/groupby/api-ruby"
   spec.license       = 'MIT'
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
@@ -28,7 +27,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   # dev dependencies
-  spec.add_development_dependency 'bundler', '1.10.5'
+  spec.add_development_dependency 'bundler', '1.16.1'
   spec.add_development_dependency 'rake', '10.4.2'
   spec.add_development_dependency 'minitest', '5.7.0'
   spec.add_development_dependency 'require_all', '1.3.2'
@@ -36,7 +35,7 @@ Gem::Specification.new do |spec|
 
   # runtime dependencies
   spec.add_runtime_dependency 'mime-types', '2.6.1'
-  spec.add_runtime_dependency 'yajl-ruby', '1.2.1'
+  spec.add_runtime_dependency 'yajl-ruby', '1.3.1'
   spec.add_runtime_dependency 'abstraction', '0.0.4'
   spec.add_runtime_dependency 'activesupport', '4.2.3'
 end
